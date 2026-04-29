@@ -21,7 +21,7 @@ The system uses a relational database and follows a normalized schema designed a
 
 ### 1. Clone repository
 ```bash
-git clone [https://github.com/your-repo-url.git](https://github.com/LamprosKoukoulis/CV-managment)
+git clone https://github.com/LamprosKoukoulis/CV-managment
 cd CV-managment
 ```
 ### 2. Install dependencies
