@@ -11,6 +11,7 @@ The system uses a relational database and follows a normalized schema designed a
 ## ⚙️ Tech Stack
 - Node.js v24.10.0.
 - JavaScript
+- Express API 
 - Turso (libSQL database)
 - dotenv
 - SQL (SQLite-compatible)

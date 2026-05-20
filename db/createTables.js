@@ -1,4 +1,4 @@
-const  query = require("./query");
+import query from "./query.js";
 
 async function initDB(){
     // await query("PRAGMA foreign_keys = ON;");

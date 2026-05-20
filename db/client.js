@@ -1,11 +1,12 @@
 // connection management
 
-require("dotenv").config();
-const { connect } = require("@tursodatabase/serverless");
+import dotenv from "dotenv";
+import { connect } from "@tursodatabase/serverless";
 
+dotenv.config();
 let dbPromise = null; //only one connection is created for the whole app
 
-function getDb() {
+export default function getDb() {
   if (!dbPromise) {
     dbPromise = connect({
       url: process.env.TURSO_DATABASE_URL,
@@ -14,5 +15,3 @@ function getDb() {
   }
   return dbPromise;
 }
-
-module.exports = getDb;

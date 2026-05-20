@@ -1,8 +1,6 @@
-const getDb = require("./client");
+import getDb from "./client.js";
 
-async function query(sql) {
+export default async function query(sql,params =[]) {
   const db = await getDb();
-  return await db.execute(sql);
+  return await db.execute(sql,params);
 }
-
-module.exports = query;
