@@ -20,7 +20,7 @@ import { json } from "express";
 
 // Login using email and pass
 const student = await getStudentByEmailAndPassword("test@email.com", "123456");
-console.log("Student : "+student);
+console.table([student]);
 
 // // Add skills based on student_id
 // await addStudentSkill(student.student_id, "Java");
@@ -35,10 +35,10 @@ console.log("Student : "+student);
 //     experience: "Node.js 🐐",
 //     education: "Bachelor In Informatics"
 // });
-await updateCV(student.student_id, {
-    summary:"From a small city, ready to code",
-});
-await getCV(student.student_id);
+// await updateCV(student.student_id, {
+//     summary:"From a small city, ready to code",
+// });
+await getCV(student.student_id,true);
 // //  Delete Skill from Student
 // deleteStudentSkill(student.student_id,"Java");
 

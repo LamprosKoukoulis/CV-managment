@@ -29,15 +29,16 @@ export async function deleteCV(student_id) {
     return result.rows[0]?.id || null;
 }
 
-export async function getCV(student_id) {
+export async function getCV(student_id, verbose =false) {
     const result = await query(`
             SELECT *
             FROM cv
             WHERE student_id =?
     `, [student_id]);
     
-
-    console.log("< CV > "+ result.rows[0]);
+    if(verbose){
+        console.table(result.rows);
+    }
     
     return result.rows[0];
 }
