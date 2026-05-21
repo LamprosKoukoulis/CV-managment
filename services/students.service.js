@@ -29,7 +29,7 @@ export async function getStudentByEmailAndPassword(email, password) {
             s.university
         FROM users u
         JOIN students s ON u.id = s.user_id
-        WHERE u.email = ? AND u.password = ?
+        WHERE u.email = ? AND u.password = ? AND u.role= 'student'
     `, [email, password]);
 
     // console.log(result);

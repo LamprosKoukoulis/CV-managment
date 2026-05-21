@@ -28,3 +28,41 @@ export async function deleteCV(student_id) {
     
     return result.rows[0]?.id || null;
 }
+
+export async function getCV(student_id) {
+    const result = await query(`
+            SELECT *
+            FROM cv
+            WHERE student_id =?
+    `, [student_id]);
+    
+
+    console.log("< CV > "+ result.rows[0]);
+    
+    return result.rows[0];
+}
+
+export async function updateCV(student_id, data) {
+    const f =[];
+    const v = [];
+    
+    for(const key in data){
+        f.push(`${key} = ?`);
+        v.push(data[key]);
+    }    
+
+    if (f.length === 0){
+        throw new Error("No fields to update");
+    }
+    
+    v.push(student_id)
+    const result = await query(`
+        UPDATE cv
+        SET ${f.join(", ")}
+        WHERE student_id = ?
+        RETURNING id
+    `, v);
+
+    
+    return result.rows[0]?.id || null;
+}
