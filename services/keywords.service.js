@@ -19,18 +19,34 @@ async function getOrCreateKeyword(name) {
     return result.rows[0].id;
 }
 
-async function addKeywordToStudent(studentId, keywordId) {
+async function addKeywordToStudent(student_id, keyword_id) {
     return await query(`
         INSERT OR IGNORE INTO student_keywords (
             student_id, keyword_id
         ) VALUES (?, ?)
-    `, [studentId, keywordId]);
+    `, [student_id, keyword_id]);
 }
 
-export async function addStudentKeyword(studentId, keywordName) {
-    const keywordId = await getOrCreateKeyword(keywordName);
+async function removeKeywordFromStudent(student_id,keyword_id) {
+    const result = await query(`
+        DELETE FROM student_keywords
+        WHERE student_id = ? AND keyword_id = ?
+        RETURNING student_id
+        `,[student_id, keyword_id]);
+    return result.rows[0]?.student_id || null;
+}
 
-    await addKeywordToStudent(studentId, keywordId);
+export async function addStudentKeyword(student_id, keywordName) {
+    const keyword_id = await getOrCreateKeyword(keywordName);
+    
+    await addKeywordToStudent(student_id, keyword_id);
+    
+    console.log("keywordId:", keyword_id, "keywordName:", keywordName);
+}
 
-    console.log("keywordId:", keywordId, "keywordName:", keywordName);
+export async function deleteStudentKeyword(student_id,keywordName) {
+    const keyword_id = await getOrCreateKeyword(keywordName);
+    
+    await removeKeywordFromStudent(student_id,keyword_id);
+    console.log("<Removed Keyword "+keywordName+" > "+ student_id);
 }

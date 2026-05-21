@@ -15,3 +15,16 @@ export async function createCV(student_id, data) {
     
     return result.rows[0].id;
 }
+
+export async function deleteCV(student_id) {
+    const result = await query(`
+        DELETE FROM cv
+        WHERE student_id =?
+        RETURNING id
+        `, [student_id]);
+    
+
+    console.log("< REMOVED CV > "+student_id);
+    
+    return result.rows[0]?.id || null;
+}
