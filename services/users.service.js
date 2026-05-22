@@ -20,5 +20,14 @@ export async function getUserByEmailNPassword(email, password) {
             `,[email,password]);
         
         console.log("User logged in");
-        return result.rows[0]?.id;
+        return result.rows[0] || null;
+}
+
+export async function getAllUsers() {
+  const result = await query(`
+    SELECT id, email, role
+    FROM users
+  `);
+
+  return result.rows;
 }
