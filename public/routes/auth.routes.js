@@ -143,7 +143,7 @@ router.get("/me", optionalAuth, async (req,res)=>{
     WHERE u.id = ?
   `,[req.user.id]
     );
-  if(!user.rows.rows.length === 0){
+  if(user.rows.length === 0){
     return res.json(null);
   }
   res.json(user.rows[0]);

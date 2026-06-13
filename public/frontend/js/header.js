@@ -61,7 +61,7 @@ async function loadHeader() {
         dropUser();
         
         // await loadHeader();
-        // location.href = "/login.html";
+        location.href = "/dashboard.html";
     };
     document.getElementById("logoutBtn")?.addEventListener("click", logout);
     document.getElementById("logoutBtnAdmin")?.addEventListener("click", logout);
