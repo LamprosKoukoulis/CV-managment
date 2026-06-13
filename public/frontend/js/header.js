@@ -14,9 +14,17 @@ async function loadHeader() {
     const navGuest = document.getElementById("nav-guest");
     const navUser = document.getElementById("nav-user");
     const navAdmin = document.getElementById("nav-admin");
-    const welcomeEl = document.getElementById("dashboardWelcomeText")
+    const welcomeEl = document.getElementById("dashboardWelcomeText");
+    
+    // EventListener 
+    document.getElementById("logo").addEventListener("click", () => {
+        console.log("button clicked");    
+        window.location.href = "/dashboard.html";
+    });
+
     let welcomeText= null;
 
+    
     const user  = await getMe();
     
     navGuest.style.display = "none";
@@ -53,15 +61,8 @@ async function loadHeader() {
         dropUser();
         
         // await loadHeader();
-        location.href = "/login.html";
+        // location.href = "/login.html";
     };
-    
-    document.getElementById("logo").addEventListener("click", () => {
-        console.log("button clicked");
-        
-        window.location.href = "/dashboard.html";
-        
-    });
     document.getElementById("logoutBtn")?.addEventListener("click", logout);
     document.getElementById("logoutBtnAdmin")?.addEventListener("click", logout);
 }

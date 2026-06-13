@@ -56,7 +56,7 @@ export async function updateCV(student_id, data) {
         throw new Error("No fields to update");
     }
     
-    v.push(student_id)
+    v.push(student_id);
     const result = await query(`
         UPDATE cv
         SET ${f.join(", ")}

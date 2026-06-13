@@ -16,7 +16,7 @@ export async function getMe(){
     }
 
     cachedUser = await res.json();
-    console.log(cachedUser);
+    // console.log(cachedUser);
     
     return cachedUser;
 }

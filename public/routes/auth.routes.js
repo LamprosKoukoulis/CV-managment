@@ -2,7 +2,7 @@ import express from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import query from "../../private/db/query.js"
-import { authMiddleware,adminMiddleware } from "../../private/middleware/auth.js";
+import { authMiddleware,adminMiddleware,optionalAuth } from "../../private/middleware/auth.js";
 
 const router = express.Router();
 
@@ -47,11 +47,11 @@ router.post("/register", async (req, res) => {
       `INSERT INTO users(        
         email,
         password)
-      VALUES(?,?,?,?)
+      VALUES(?,?)
       RETURNING id
       `,[
         email,
-        password,
+        hash,
         
       ]
     );
@@ -123,25 +123,30 @@ router.post("/logout", (req, res) => {
   res.json({ message: "Logged out" });
 });
 
-router.get("/me", authMiddleware, async (req,res)=>{
-    const user =
-      await query(`
-        SELECT
-          u.id,
-          u.email,
-          u.role,
-          s.name,
-          s.surname,
-          s.degree,
-          s.university
-        FROM users u
-        LEFT JOIN students s
-          ON s.user_id = u.id
-        WHERE u.id = ?
-    `,[req.user.id]
-      );
-    
-    res.json(user.rows[0]);
+router.get("/me", optionalAuth, async (req,res)=>{
+  if (!req.user) {
+      return res.json(null);
+  }
+
+  const user =await query(`
+    SELECT
+      u.id,
+      u.email,
+      u.role,
+      s.name,
+      s.surname,
+      s.degree,
+      s.university
+    FROM users u
+    LEFT JOIN students s
+      ON s.user_id = u.id
+    WHERE u.id = ?
+  `,[req.user.id]
+    );
+  if(!user.rows.rows.length === 0){
+    return res.json(null);
+  }
+  res.json(user.rows[0]);
   }
 );
 

@@ -4,7 +4,7 @@ async function loadUser(){
 
     const user =await getMe();
     if(!user){
-        window.location.href = "/login.html";
+        // window.location.href = "/login.html";
         return;
     }
 
