@@ -1,8 +1,8 @@
-import {createUser, getUserByEmailNPassword} from "./services/users.service.js";
-import {createStudent, getStudentByEmailAndPassword} from "./services/students.service.js";
-import {addStudentKeyword, deleteStudentKeyword} from "./services/keywords.service.js";
-import {addStudentSkill, deleteStudentSkill} from "./services/skills.service.js";
-import { createCV, deleteCV, getCV, updateCV } from "./services/cv.service.js";
+import {createUser, getUserByEmailNPassword} from "./private/services/users.service.js";
+import {createStudent, getStudentByEmailAndPassword} from "./private/services/students.service.js";
+import {addStudentKeyword, deleteStudentKeyword} from "./private/services/keywords.service.js";
+import {addStudentSkill, deleteStudentSkill} from "./private/services/skills.service.js";
+import { createCV, deleteCV, getCV, updateCV } from "./private/services/cv.service.js";
 import { json } from "express";
 
 // //node run run.js
