@@ -16,7 +16,8 @@ export async function getMe(){
     }
 
     cachedUser = await res.json();
-    // localStorage.setItem("me", JSON.stringify(cachedUser));
+    console.log(cachedUser);
+    
     return cachedUser;
 }
 

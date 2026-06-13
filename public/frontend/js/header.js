@@ -34,10 +34,10 @@ async function loadHeader() {
         navAdmin.style.display = "block";
         welcomeText =`Admin: ${user.full_name}`;
         
-    } else if(user.role ==="user") {
+    } else if(user.role ==="student") {
         
         navUser.style.display = "block";
-        welcomeText =`Welcome ${user.full_name}`;
+        welcomeText =`Welcome ${user.name+" "+ user.surname}`;
     }
     if(welcomeEl){
         welcomeEl.textContent=welcomeText;

@@ -12,8 +12,10 @@ router.post("/register", async (req, res) => {
     const {
       email,
       password,
-      full_name,
-      semester
+      name,
+      surname,
+      degree,
+      university
     } = req.body;
 
     if (!email || !password || !full_name) {
@@ -41,16 +43,33 @@ router.post("/register", async (req, res) => {
 
     const hash = await bcrypt.hash(password, 10);
 
-    await query(
-      `INSERT INTO users(email,password)
+    result = await query(
+      `INSERT INTO users(        
+        email,
+        password)
       VALUES(?,?,?,?)
+      RETURNING id
       `,[
         email,
-        hash,
-        full_name,
-        semester || 1
+        password,
+        
       ]
     );
+    await query(`
+      INSERT INTO students(
+        user_id
+        name,
+        surname,
+        degree,
+        university)
+        VALUES(?,?,?,?)
+        `,[
+          result.rows[0],
+          name,
+          surname,
+          degree,
+          university
+        ]);
 
     res.status(201).json({
       message: "User created"
@@ -108,12 +127,18 @@ router.get("/me", authMiddleware, async (req,res)=>{
     const user =
       await query(`
         SELECT
-          id,
-          email,
-          role
-        FROM users
-        WHERE id = ?
-        `,[req.user.id]
+          u.id,
+          u.email,
+          u.role,
+          s.name,
+          s.surname,
+          s.degree,
+          s.university
+        FROM users u
+        LEFT JOIN students s
+          ON s.user_id = u.id
+        WHERE u.id = ?
+    `,[req.user.id]
       );
     
     res.json(user.rows[0]);
