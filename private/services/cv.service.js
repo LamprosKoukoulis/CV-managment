@@ -48,7 +48,7 @@ export async function getCV(student_id, verbose =false) {
             console.table(response);
         }
         
-        return response;
+        return response || null;
     } catch (err) {
         console.error("getCV error:", err);
         throw err;
@@ -57,18 +57,23 @@ export async function getCV(student_id, verbose =false) {
 
 export async function updateCV(student_id, data) {
     const result = await query(`
-        UPDATE cv
-        SET 
-            summary=?,
-            experience=?,
-            education=?
-        WHERE student_id = ?
+        INSERT INTO cv (
+            student_id,
+            summary,
+            experience,
+            education
+        )
+        VALUES (?, ?, ?, ?)
+        ON CONFLICT(student_id) DO UPDATE SET
+            summary = excluded.summary,
+            experience = excluded.experience,
+            education = excluded.education
         RETURNING id
     `, [
+        Number(student_id),
         data.summary,
         data.experience,
-        data.education,
-        Number(student_id)
+        data.education
     ]);
 
     
