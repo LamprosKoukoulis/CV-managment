@@ -1,4 +1,6 @@
 import query from "../db/query.js";
+import {getStudentSkill} from "./skills.service.js"
+import { getStudentKeyword } from "./keywords.service.js";
 
 export async function createCV(student_id, data) {
     const result = await query(`
@@ -30,39 +32,44 @@ export async function deleteCV(student_id) {
 }
 
 export async function getCV(student_id, verbose =false) {
-    const result = await query(`
-            SELECT *
-            FROM cv
-            WHERE student_id =?
-    `, [student_id]);
-    
-    if(verbose){
-        console.table(result.rows);
+    try{
+        let result = await query(`
+                SELECT *
+                FROM cv
+                WHERE student_id =?
+        `, [student_id]);
+        const cv = result.rows[0];
+        
+        const skills = await getStudentSkill(student_id);
+        
+        const keywords = await getStudentKeyword(student_id);
+        const response ={...cv, skills, keywords}
+        if(verbose){
+            console.table(response);
+        }
+        
+        return response;
+    } catch (err) {
+        console.error("getCV error:", err);
+        throw err;
     }
-    
-    return result.rows[0];
 }
 
 export async function updateCV(student_id, data) {
-    const f =[];
-    const v = [];
-    
-    for(const key in data){
-        f.push(`${key} = ?`);
-        v.push(data[key]);
-    }    
-
-    if (f.length === 0){
-        throw new Error("No fields to update");
-    }
-    
-    v.push(student_id);
     const result = await query(`
         UPDATE cv
-        SET ${f.join(", ")}
+        SET 
+            summary=?,
+            experience=?,
+            education=?
         WHERE student_id = ?
         RETURNING id
-    `, v);
+    `, [
+        data.summary,
+        data.experience,
+        data.education,
+        Number(student_id)
+    ]);
 
     
     return result.rows[0]?.id || null;

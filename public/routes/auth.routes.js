@@ -101,9 +101,17 @@ router.post("/login", async (req, res) => {
   const valid = await bcrypt.compare(password, u.password);
   if (!valid) return res.status(401).json({ error: "Invalid password" });
 
+  const student = await query(
+    "SELECT id FROM students WHERE user_id = ?",
+    [u.id],
+  );
+
+  const s_id = student.rows[0].id ?? null;
+
   const token = jwt.sign(
     { id: u.id, 
       role: u.role,
+      student_id: s_id 
     },
     process.env.JWT_SECRET
   );
@@ -133,6 +141,7 @@ router.get("/me", optionalAuth, async (req,res)=>{
       u.id,
       u.email,
       u.role,
+      s.id as student_id,
       s.name,
       s.surname,
       s.degree,
