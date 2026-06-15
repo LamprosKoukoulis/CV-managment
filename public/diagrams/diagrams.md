@@ -15,8 +15,6 @@ erDiagram
         int user_id FK
         text name
         text surname
-        text degree
-        text university
     }
 
     CV {
