@@ -2,23 +2,21 @@ import express from "express";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import query from "../../private/db/query.js"
-import { authMiddleware,adminMiddleware,optionalAuth } from "../../private/middleware/auth.js";
+import { authMiddleware, adminMiddleware, optionalAuth } from "../../private/middleware/auth.js";
 
 const router = express.Router();
 
 // REGISTER
-router.post("/register", async (req, res) => {
+router.post("/register",authMiddleware,adminMiddleware, async (req, res) => {
   try {
     const {
       email,
       password,
       name,
-      surname,
-      degree,
-      university
+      surname
     } = req.body;
 
-    if (!email || !password || !full_name) {
+    if (!email || !password || !name || !surname) {
       return res.status(400).json({
         error: "Missing required fields"
       });
@@ -43,43 +41,38 @@ router.post("/register", async (req, res) => {
 
     const hash = await bcrypt.hash(password, 10);
 
-    result = await query(
+    const result = await query(
       `INSERT INTO users(        
         email,
         password)
       VALUES(?,?)
       RETURNING id
-      `,[
-        email,
-        hash,
-        
-      ]
-    );
+      `, [
+      email,
+      hash,
+
+    ]);
+    const id = result.rows[0].id;
+    console.log("user id : "+id);
+    
     await query(`
       INSERT INTO students(
-        user_id
+        user_id,
         name,
-        surname,
-        degree,
-        university)
-        VALUES(?,?,?,?)
-        `,[
-          result.rows[0],
-          name,
-          surname,
-          degree,
-          university
-        ]);
+        surname
+      )
+        VALUES(?,?,?)
+      `, [
+      Number(id),
+      name,
+      surname
+    ]);
 
-    res.status(201).json({
-      message: "User created"
-    });
+    res.status(201).json({ message: "User created" });
 
   } catch (err) {
     console.error(err);
-    res.status(500).json({
-      error: "Server error"
-    });
+    res.status(500).json({ error: "Server error" });
   }
 });
 
@@ -94,8 +87,8 @@ router.post("/login", async (req, res) => {
   );
 
   const u = user.rows[0];
-  console.log(u);
-  
+  // console.log(u);
+
   if (!u) return res.status(401).json({ error: "Invalid email" });
 
   const valid = await bcrypt.compare(password, u.password);
@@ -109,14 +102,15 @@ router.post("/login", async (req, res) => {
   const s_id = student.rows[0].id ?? null;
 
   const token = jwt.sign(
-    { id: u.id, 
+    {
+      id: u.id,
       role: u.role,
-      student_id: s_id 
+      student_id: s_id
     },
     process.env.JWT_SECRET
   );
 
-    res.cookie("token", token, {
+  res.cookie("token", token, {
     httpOnly: true,
     secure: false, // TODO: true (https)
     sameSite: "lax",
@@ -131,32 +125,30 @@ router.post("/logout", (req, res) => {
   res.json({ message: "Logged out" });
 });
 
-router.get("/me", optionalAuth, async (req,res)=>{
+router.get("/me", optionalAuth, async (req, res) => {
   if (!req.user) {
-      return res.json(null);
+    return res.json(null);
   }
 
-  const user =await query(`
+  const user = await query(`
     SELECT
       u.id,
       u.email,
       u.role,
       s.id as student_id,
       s.name,
-      s.surname,
-      s.degree,
-      s.university
+      s.surname
     FROM users u
     LEFT JOIN students s
       ON s.user_id = u.id
     WHERE u.id = ?
-  `,[req.user.id]
-    );
-  if(user.rows.length === 0){
+  `, [req.user.id]
+  );
+  if (user.rows.length === 0) {
     return res.json(null);
   }
   res.json(user.rows[0]);
-  }
+}
 );
 
 // router.get("/admin/panel", authMiddleware, adminMiddleware, (req, res) => {

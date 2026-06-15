@@ -2,15 +2,13 @@ import query from "../db/query.js";
 
 export async function createStudent(userId, data) {
     const result = await query(`
-        INSERT INTO students (user_id, name, surname, degree, university)
+        INSERT INTO students (user_id, name, surname)
         VALUES (?, ?, ?, ?, ?)
         RETURNING user_id
     `, [
         userId,
         data.name,
-        data.surname,
-        data.degree,
-        data.university
+        data.surname
     ]);
 
     return result.rows[0].id;
@@ -24,9 +22,7 @@ export async function getStudentByEmailAndPassword(email, password) {
             u.role,
             s.id AS student_id,
             s.name,
-            s.surname,
-            s.degree,
-            s.university
+            s.surname
         FROM users u
         JOIN students s ON u.id = s.user_id
         WHERE u.email = ? AND u.password = ? AND u.role= 'student'

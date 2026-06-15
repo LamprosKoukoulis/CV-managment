@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(express.static("public"));
 
 // API routes
-app.use("/api/users", userRouter);
+// app.use("/api/users", userRouter);
 app.use("/auth", authRouter);
 app.use("/cv",cvRouter);
 app.use("/skills",skillsRouter);

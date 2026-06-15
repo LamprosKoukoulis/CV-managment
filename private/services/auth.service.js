@@ -17,9 +17,7 @@ export async function login(email,password) {
             role    : student.role,
             student_id: student.student_id,
             name    : student.name,
-            surname : student.surname,
-            degree  : student.degree,
-            university: student.university  
+            surname : student.surname 
         });
 
         return (student,token);
