@@ -10,11 +10,19 @@ body {
 }
 
 button {
-  padding: 10px 15px;
-  cursor: pointer;
-  margin-bottom: 20px;
+    padding: 10px 15px;
+    background: #3b009b;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
 }
 
+button:hover {
+    background: #3b009b;
+}
 .card {
   border: 1px solid #ddd;
   padding: 10px;

@@ -14,9 +14,9 @@ async function loadCV() {
 
     renderCVEditor(cv);
 
-    renderSkills(allSkills, studentSkillIds);
+    render("skills", "skillsTags", allSkills, studentSkillIds);
 
-    renderKeywords(allKeywords, studentKeywordIds);
+    render("keywords", "keywordsTags", allKeywords, studentKeywordIds);
 
     document.getElementById("skills").addEventListener("change", () => {
         const ids = [...document.getElementById("skills").selectedOptions].map(o => Number(o.value));
@@ -40,67 +40,60 @@ function renderCVEditor(cv = {}) {
 
     editor.innerHTML = `
         <form id="cvForm">
-
+            <section class="cv-main">
             <label>Summary</label>
             <textarea name="summary">${cv?.summary || ""}</textarea>
-
+            
             <label>Education</label>
             <textarea name="education">${cv?.education || ""}</textarea>
-
+            
             <label>Experience</label>
             <textarea name="experience">${cv?.experience || ""}</textarea>
-
+            </section>
+            <section class="cv-rest">
+            <div class="group">
             <label>Skills</label>
             <div id="skillsTags"></div>
-            <select id="skills" multiple>
+            <select id="skills" class="tags-container" multiple>
             </select>
-
+            </div>
+            </group>
+            
+            <div class="group">
             <label>Keywords</label>
             <div id="keywordsTags"></div>
-            <select id="keywords" multiple>
+            <select id="keywords" class="tags-container" multiple>
             </select>
+            </div>
+            </section>
 
+            <div class="cv-actions">
             <button id="submit-cv" type="submit">
                 Save CV
             </button>
+            </div>
 
         </form>
     `;
-
 }
 
-function renderSkills(skills, selectedIds) {
+function render(selectId, tagsId, items, selectedIds = []) {
 
-    const select = document.getElementById("skills");
+    const select = document.getElementById(selectId);
 
-    select.innerHTML = skills.map(skill => `
+    select.innerHTML = items.map(item => `
         <option
-            value="${skill.id}"
-            ${selectedIds.includes(skill.id) ? "selected" : ""}
+            value="${item.id}"
+            ${selectedIds?.includes(item.id) ? "selected" : ""}
         >
-            ${skill.name}
+            ${item.name}
         </option>
     `).join("");
 
-    updateTags("skillsTags", skills, selectedIds);
+    updateTags(tagsId, items, selectedIds);
 }
 
-function renderKeywords(keywords, selectedIds) {
-
-    const select = document.getElementById("keywords");
-    select.innerHTML = keywords.map(keyword => `
-        <option
-            value="${keyword.id}"
-            ${selectedIds.includes(keyword.id) ? "selected" : ""}
-        >
-            ${keyword.name}
-        </option>
-    `).join("");
-
-    updateTags("keywordsTags", keywords, selectedIds);
-}
-
-function updateTags(element, items, selectedIds) {
+function updateTags(element, items, selectedIds = []) {
 
     const container = document.getElementById(element);
     // container.innerHTML ="";
