@@ -40,7 +40,7 @@ async function loadHeader() {
     if (user.role === "admin") {
         
         navAdmin.style.display = "block";
-        welcomeText =`Admin: ${user.full_name}`;
+        welcomeText =`Admin: ${user.name+" "+ user.surname}`;
         
     } else if(user.role ==="student") {
         
