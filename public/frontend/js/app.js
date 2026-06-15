@@ -3,7 +3,7 @@ async function loadUsers() {
     const res = await fetch("/api/users");
     
     const users = await res.json();
-    console.log(users);
+    // console.log(users);
 
     const container = document.getElementById("output");
 

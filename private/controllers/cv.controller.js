@@ -6,7 +6,7 @@ export async function getCV(req,res){
           return res.json(null);
     }
     try{
-      const cv =await getCVService(req.user.student_id,true);
+      const cv =await getCVService(req.user.student_id);
       return res.json(cv);
     } catch (err) {
         res.status(500).json({ error: "Failed to load user cv"});
