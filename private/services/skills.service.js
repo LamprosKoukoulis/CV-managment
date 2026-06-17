@@ -26,13 +26,13 @@ export async function getStudentSkill(student_id) {
 
     return result.rows;
 }
-async function createSkill(skill_name) {
+export async function addSkill(skill_name) {
         const result = await query(`
         INSERT INTO skills (name)
         VALUES (?)
         RETURNING id
     `, [skill_name]);
-    return result.rows[0].id;
+    return result.rows[0];
 }
 
 async function addSkillToStudent(student_id, skill_id) {

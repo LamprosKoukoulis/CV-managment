@@ -27,6 +27,15 @@ export async function getStudentKeyword(student_id) {
     return result.rows;
 }
 
+export async function addKeyword(name) {
+    const result = await query(`
+        INSERT INTO keywords (name)
+         VALUES(?)
+         returning id,name
+    `,[name]);
+    return result.rows[0];
+}
+
 async function addKeywordToStudent(student_id, keyword_id) {
     return await query(`
         INSERT OR IGNORE INTO student_keywords (

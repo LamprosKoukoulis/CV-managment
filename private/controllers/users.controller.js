@@ -92,6 +92,11 @@ export async function createUser(req, res) {
 
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Server error" });
+    if (err.message?.includes("UNIQUE constraint failed")) {
+      return res.status(409).json({
+        error: "This item already exists"
+      });
+    }
+    return res.status(500).json({ error: "Server error" });
   }
 }

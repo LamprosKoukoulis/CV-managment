@@ -1,4 +1,4 @@
-import { addStudentSkills, getAllSkills } from "../services/skills.service.js";
+import { addSkill, addStudentSkills, getAllSkills } from "../services/skills.service.js";
 
 export async function getAllSkillsController(req, res) {
     try {
@@ -22,5 +22,26 @@ export async function addStudentSkillsController(req, res) {
     } catch (err) {
         console.error(err);
         res.status(500).json({ error: "Failed to add keywords" });
+    }
+}
+
+export async function addSkillsController(req, res) {
+    try {
+        const { skill } = req.body;
+        const skills = skill.split(",");
+        let result;
+        for (const s of skills) {
+            result += await addSkill(s);
+        }
+
+        res.json(result);
+    } catch (err) {
+        console.error(err);
+        if (err.message?.includes("UNIQUE constraint failed")) {
+            return res.status(409).json({
+                error: "This item already exists"
+            });
+        }
+        return res.status(500).json({ error: "Server error" });
     }
 }
