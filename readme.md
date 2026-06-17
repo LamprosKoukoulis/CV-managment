@@ -37,6 +37,10 @@ Create a .env file in the root directory:
 TURSO_DATABASE_URL=libsql://your-db.turso.io
 TURSO_AUTH_KEY=your_database_token
 ```
+### 4. Create local server
+```bash
+  node serevr.js
+```
 
 ## 📌 Notes
 Database is hosted on Turso (cloud SQLite)  
