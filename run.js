@@ -1,9 +1,11 @@
-import {createUser, getUserByEmailNPassword} from "./private/services/users.service.js";
-import {createStudent, getStudentByEmailAndPassword} from "./private/services/students.service.js";
-import {addStudentKeyword, deleteStudentKeyword} from "./private/services/keywords.service.js";
-import {addStudentSkill, deleteStudentSkill} from "./private/services/skills.service.js";
+import { getAllUsers, getUserByEmailNPassword} from "./private/services/users.service.js";
+import { getStudentByEmailAndPassword} from "./private/services/students.service.js";
+import { deleteStudentKeyword, getAllKeywords} from "./private/services/keywords.service.js";
+import {addStudentSkill, deleteStudentSkill, getAllSkills} from "./private/services/skills.service.js";
 import { createCV, deleteCV, getCV, updateCV } from "./private/services/cv.service.js";
-import { json } from "express";
+import bcrypt from "bcrypt";
+// import { json } from "express";
+// import { login } from "./private/services/auth.service.js";
 
 // //node run run.js
 
@@ -19,9 +21,17 @@ import { json } from "express";
 // });
 
 // Login using email and pass
-const student = await getStudentByEmailAndPassword("test@email.com", "123456");
-console.table([student]);
+const keywords = await getAllKeywords();
+console.table(keywords);
 
+const skills = await getAllSkills();
+console.table(skills);
+
+const users = await getAllUsers();
+console.table(users[2].email);
+
+// const cv = await getCV(student.id);
+// console.log(cv);
 // // Add skills based on student_id
 // await addStudentSkill(student.student_id, "Java");
 // await addStudentSkill(student.student_id, "Node.js");
@@ -38,7 +48,7 @@ console.table([student]);
 // await updateCV(student.student_id, {
 //     summary:"From a small city, ready to code",
 // });
-await getCV(student.student_id,true);
+// await getCV(student.student_id,true);
 // //  Delete Skill from Student
 // deleteStudentSkill(student.student_id,"Java");
 
