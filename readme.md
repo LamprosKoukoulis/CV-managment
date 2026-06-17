@@ -9,11 +9,15 @@ The system uses a relational database and follows a normalized schema designed a
 ---
 
 ## ⚙️ Tech Stack
-- Node.js v24.10.0.
+- Node.js 18+
 - JavaScript
+- dotenv
+- bcrypt
+- jsonwebtoken
+- cors
+- cookie-parser
 - Express API 
 - Turso (libSQL database)
-- dotenv
 - SQL (SQLite-compatible)
 
 ---
@@ -36,8 +40,11 @@ Create a .env file in the root directory:
 ```bash
 TURSO_DATABASE_URL=libsql://your-db.turso.io
 TURSO_AUTH_KEY=your_database_token
+JWT_SECRET=your_jwt_key
+PORT=default_is_3000
+
 ```
-### 4. Create local server
+### 4. Run local server
 ```bash
   node serevr.js
 ```
