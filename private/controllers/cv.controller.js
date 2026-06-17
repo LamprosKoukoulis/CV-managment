@@ -26,7 +26,8 @@ export async function updateCV(req,res){
         await updateCVService(uId,{summary,education,experience})
 
         res.json({
-            success:true
+            success:true,
+            message: "CV updated successfully"
         });
     }catch(err){
         console.error(err);
