@@ -79,7 +79,7 @@ export async function addStudentSkill(student_id, skill_id) {
     
     await addSkillToStudent(Number(student_id), Number(skill_id));
     
-    console.log("skill_id:", skill_id, "skillName:", skillName);
+    // console.log("skill_id:", skill_id, "skillName:", skillName);
 }
 
 export async function deleteStudentSkill(student_id,skill_id) {

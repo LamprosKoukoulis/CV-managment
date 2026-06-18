@@ -18,7 +18,7 @@ async function loadHeader() {
     
     // EventListener 
     document.getElementById("logo").addEventListener("click", () => {
-        console.log("button clicked");    
+        // console.log("button clicked");
         window.location.href = "/dashboard.html";
     });
 

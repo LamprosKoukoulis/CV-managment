@@ -18,7 +18,6 @@ async function loadCV() {
     await maybeLoadStudents();
 
     await loadAllLookups();
-    console.log(user.currentStudentId,user.me.student_id);
     
     await reloadCVForStudent(user.currentStudentId?? user.me.student_id);
 }
@@ -27,7 +26,7 @@ async function loadMe() {
     const res = await fetch("/auth/me", { credentials: "include" });
     user.me = await res.json();
 
-    console.log("me:", user.me);
+    // console.log("me:", user.me);
 }
 
 async function maybeLoadStudents() {
@@ -76,7 +75,7 @@ async function loadAllLookups() {
 }
 
 async function reloadCVForStudent(studentId = null) {
-    console.log("Loading CV for student:", studentId);
+    // console.log("Loading CV for student:", studentId);
     const url = studentId ? `/cv?student_id=${studentId}` : "/cv";
 
     const res = await fetch(url, { credentials: "include" });

@@ -161,13 +161,13 @@ async function loadStudentsIfAdmin() {
     const meRes = await fetch("/auth/me", { credentials: "include" });
     const me = await meRes.json();
     
-    console.log("me: ",me);
+    // console.log("me: ",me);
     if (me.role !== "admin") return;
 
     const res = await fetch("/students", { credentials: "include" });
 
     const students = await res.json();
-    console.log(students);
+    // console.log(students);
     
     const container = document.getElementById("adminStudentSelect");
 

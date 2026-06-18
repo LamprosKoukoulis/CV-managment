@@ -14,7 +14,7 @@ export async function getCV(req,res){
         }
 
       const cv =await getCVService(studentId);
-      console.log(cv);
+    //   console.log(cv);
       
       return res.json(cv);
     } catch (err) {

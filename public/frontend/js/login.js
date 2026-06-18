@@ -8,7 +8,7 @@ document.getElementById("loginForm")
 
     const password =
         document.getElementById("password").value;
-    console.log(email,password);
+    // console.log(email,password);
     
     const response = await fetch("/auth/login", {
         method: "POST",
