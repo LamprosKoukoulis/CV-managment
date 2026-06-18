@@ -14,28 +14,18 @@
     <div>
         <div id="dashboardWelcomeText" class="welcomeText"></div>
     </div>
-
-
-
-
-    <div id="site-container">
-        <section id="admin" style="display:none"> </section>
-    </div>
-    <section class="hero">
+    <section id="browseCv" class="hero" style="display: none;">
         <div class="hero-icon">
             <span class="line"></span>
             <!-- <img class="icon" src="./images/learning.png"><br> -->
             <span class="line"></span>
         </div>
-        <h2>CV MANAGER</h2>
-        <br>
-        <p>
-            Looking to employ freshly graduated university students?<br>
-            You came to the right Place!
-            See CVs' here!
-        </p><br>
-        <button>Start Here</button>
+        <h2>CVs</h2>
+        <div id="publicCvFilters" class="cv-filters"></div>
+        <div id="publicCvList"></div>
     </section>
+
+    <section id="admin" style="display:none"> </section>
 
     <section id="cv" class="cv" style="display: none;">
         <div class="cv-icon">
@@ -45,16 +35,15 @@
         </div>
         <h2>Edit Your CV</h2>
         <div id="cvEditor"></div>
-        <button id="editCvBtn">Start Here</button>
     </section>
 
     <!-- <section id="admin" style="display:none"> </section> -->
 
-    <script type="module" src="./frontend/js/dashboard.js"></script>
     <script type="module" src="./frontend/js/header.js"></script>
     <!-- <script type="module" src="./frontend/js/student.js"></script> -->
     <script type="module" src="./frontend/js/cv/main.js"></script>
     <script type="module" src="./frontend/js/admin.js"></script>
+    <script type="module" src="./frontend/js/dashboard.js"></script>
     <!-- <script src="./js/content.js"></script> -->
 
 </body>

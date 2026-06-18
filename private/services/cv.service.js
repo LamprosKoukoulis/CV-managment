@@ -55,6 +55,37 @@ export async function getCV(student_id, verbose =false) {
     }
 }
 
+export async function getAllCVs() {
+    try {
+        const result = await query(`
+            SELECT
+                cv.id AS cv_id,
+                students.id AS student_id,
+                students.name,
+                students.surname,
+                cv.summary,
+                cv.experience,
+                cv.education
+            FROM students
+            LEFT JOIN cv ON cv.student_id = students.id
+            ORDER BY students.surname, students.name
+        `);
+
+        const cvs = [];
+
+        for (const cv of result.rows) {
+            const skills = await getStudentSkill(cv.student_id);
+            const keywords = await getStudentKeyword(cv.student_id);
+            cvs.push({ ...cv, skills, keywords });
+        }
+
+        return cvs;
+    } catch (err) {
+        console.error("getAllCVs error:", err);
+        throw err;
+    }
+}
+
 export async function updateCV(student_id, data) {
     const result = await query(`
         INSERT INTO cv (

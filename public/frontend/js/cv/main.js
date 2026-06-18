@@ -3,9 +3,15 @@ import { loadMe, loadStudents, loadLookups, loadCV, saveCV } from "./fetch.js";
 import { renderCV, renderCVEditor, attachListeners } from "./render.js";
 import { renderStudentDropdown } from "./extras-ui.js";
 
-document.getElementById("editCvBtn").addEventListener("click", init);
+init();
+document.addEventListener("dashboard:ready", init);
 
 async function init() {
+    const cvSection = document.getElementById("cv");
+
+    if (!cvSection || cvSection.style.display === "none") {
+        return;
+    }
     
     renderCVEditor();
     
@@ -26,7 +32,7 @@ async function init() {
 
     await loadLookups();
 
-    const cv = await loadCV(user.currentStudentId);
+    await loadCV(user.currentStudentId);
 
     renderCV(user.cv);
 }

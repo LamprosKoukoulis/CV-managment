@@ -1,10 +1,11 @@
-import { getCV as getCVService, updateCV as updateCVService } from "../services/cv.service.js" ;
+import { getAllCVs, getCV as getCVService, updateCV as updateCVService } from "../services/cv.service.js" ;
 
 
 export async function getCV(req,res){
     try{
     if (!req.user) {
-          return res.json(null);
+          const cvs = await getAllCVs();
+          return res.json(cvs);
     }
     let studentId = req.user.student_id;
 

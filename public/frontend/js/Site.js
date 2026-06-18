@@ -11,32 +11,32 @@ async function loadSite() {
     container.innerHTML = html;
 
     
-    const navGuest = document.getElementById("site-guest");
-    const navUser = document.getElementById("site-user");
-    const navAdmin = document.getElementById("site-admin");
+    const Guest = document.getElementById("site-guest");
+    const User = document.getElementById("site-user");
+    const Admin = document.getElementById("site-admin");
     
 
     const user  = await getMe();
     
-    navGuest.style.display = "none";
-    navUser.style.display = "none";
-    navAdmin.style.display = "none";
+    Guest.style.display = "none";
+    User.style.display = "none";
+    Admin.style.display = "none";
   
 
     if (!user) {
         
-        navGuest.style.display= "block";    
+        Guest.style.display= "block";    
         return;
     }
     
     if (user.role === "admin") {
         
-        navAdmin.style.display = "block";
+        Admin.style.display = "block";
         
         
     } else if(user.role ==="student") {
         
-        navUser.style.display = "block";
+        User.style.display = "block";
         
     }
 

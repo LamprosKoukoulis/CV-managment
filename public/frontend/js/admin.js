@@ -1,9 +1,14 @@
-createAdminDashBoard();
+const adminSection = document.getElementById("admin");
+
+if (adminSection) {
+    createAdminDashBoard();
+}
+
 const createUserForm = document.getElementById("createUserForm");
 const craeteKeywordForm = document.getElementById("createKeyword");
 const craeteSkillsForm = document.getElementById("createSkill");
 
-createUserForm.addEventListener("submit", async (e) => {
+createUserForm?.addEventListener("submit", async (e) => {
     e.preventDefault();
     submitForm({
         endpoint : "/auth/register",
@@ -19,7 +24,7 @@ createUserForm.addEventListener("submit", async (e) => {
     });
 });
 
-craeteKeywordForm.addEventListener("submit", async (e) => {
+craeteKeywordForm?.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     submitForm({
@@ -33,7 +38,7 @@ craeteKeywordForm.addEventListener("submit", async (e) => {
     });
 });
 
-craeteSkillsForm.addEventListener("submit", async (e) => {
+craeteSkillsForm?.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     submitForm({
