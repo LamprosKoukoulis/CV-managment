@@ -4,8 +4,3 @@ node_modules/
 sqlite.db
 sqlite.db-wal
 run.js
-public/frontend/js/cv/fetch.js
-public/frontend/js/cv/main.js
-public/frontend/js/cv/render.js
-public/frontend/js/cv/ui.js
-public/frontend/js/cv/user.js
