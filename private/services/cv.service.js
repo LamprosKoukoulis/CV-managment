@@ -37,7 +37,7 @@ export async function getCV(student_id, verbose =false) {
                 SELECT *
                 FROM cv
                 WHERE student_id =?
-        `, [student_id]);
+        `, [Number(student_id)]);
         const cv = result.rows[0];
         
         const skills = await getStudentSkill(student_id);

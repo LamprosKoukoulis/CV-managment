@@ -45,6 +45,7 @@ export async function updateCV(req,res){
             success:true,
             message: "CV updated successfully"
         });
+
     }catch(err){
         console.error(err);
 
