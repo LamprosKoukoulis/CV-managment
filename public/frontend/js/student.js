@@ -1,6 +1,12 @@
+//Deprecated use js/cv.js instead 
+
 document.getElementById("editCvBtn").addEventListener("click", loadCV);
+let currentStudentId = null;
 async function loadCV() {
-    const res = await fetch("/cv", { credentials: "include" });
+    renderCVEditor();
+    loadStudentsIfAdmin();
+    const url = currentStudentId ? `/cv?student_id=${currentStudentId}` : "/cv";
+    const res = await fetch(url, { credentials: "include" });
     const cv = await res.json();
 
     const studentSkillIds = cv.skills.map(k => k.id);
@@ -11,8 +17,6 @@ async function loadCV() {
 
     const allKeywordsRes = await fetch("/keywords", { credentials: "include" });
     const allKeywords = await allKeywordsRes.json();
-
-    renderCVEditor(cv);
 
     render("skills", "skillsTags", allSkills, studentSkillIds);
 
@@ -40,6 +44,11 @@ function renderCVEditor(cv = {}) {
 
     editor.innerHTML = `
         <form id="cvForm">
+            <div class="group">
+            <select type="select" id="adminStudentSelect" ></select>
+            
+            </div>
+
             <section class="cv-main">
             <label>Summary</label>
             <textarea name="summary">${cv?.summary || ""}</textarea>
@@ -57,7 +66,7 @@ function renderCVEditor(cv = {}) {
             <select id="skills" class="tags-container" multiple>
             </select>
             </div>
-            </group>
+            </div>
             
             <div class="group">
             <label>Keywords</label>
@@ -148,3 +157,36 @@ async function saveCV(form) {
     });
 }
 
+async function loadStudentsIfAdmin() {
+    const meRes = await fetch("/auth/me", { credentials: "include" });
+    const me = await meRes.json();
+    
+    console.log("me: ",me);
+    if (me.role !== "admin") return;
+
+    const res = await fetch("/students", { credentials: "include" });
+
+    const students = await res.json();
+    console.log(students);
+    
+    const container = document.getElementById("adminStudentSelect");
+
+    container.innerHTML = `
+        <label>Select student</label>
+        <select id="studentSelector">
+            ${students.map(s =>
+                `<option value="${s.student_id}">
+                    ${s.name}
+                </option>`
+            ).join("")}
+        </select>
+    `;
+
+    document.getElementById("studentSelector").addEventListener("change", (e) => {
+        currentStudentId = Number(e.target.value);
+        reloadCVForStudent(currentStudentId);
+    });
+
+    // default load first student
+    currentStudentId = students[0].student_id;
+}

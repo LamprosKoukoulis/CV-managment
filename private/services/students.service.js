@@ -31,3 +31,14 @@ export async function getStudentByEmailAndPassword(email, password) {
     // console.log(result);
     return result.rows[0];
 }
+
+export async function getAllStudentsService() {
+    const result = await query(`SELECT             
+            id AS student_id,           
+            user_id,
+            name,
+            surname
+            FROM students`)
+
+    return result.rows;
+}

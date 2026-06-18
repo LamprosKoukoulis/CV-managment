@@ -12,16 +12,21 @@ export async function getAllSkillsController(req, res) {
 
 export async function addStudentSkillsController(req, res) {
     try {
-        const s_id = req.user.student_id;
+        let studentId = req.user.student_id;
+
+        // ADMIN override
+        if (req.user.role === "admin" && req.body.student_id) {
+            studentId = Number(req.body.student_id);
+        }
         const { skillIds } = req.body;
-        await addStudentSkills(s_id, skillIds);
+        await addStudentSkills(studentId, skillIds);
 
         res.json({
             success: true
         });
     } catch (err) {
         console.error(err);
-        res.status(500).json({ error: "Failed to add keywords" });
+        res.status(500).json({ error: "Failed to add Skill" });
     }
 }
 

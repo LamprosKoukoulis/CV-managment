@@ -2,11 +2,20 @@ import { getCV as getCVService, updateCV as updateCVService } from "../services/
 
 
 export async function getCV(req,res){
+    try{
     if (!req.user) {
           return res.json(null);
     }
-    try{
-      const cv =await getCVService(req.user.student_id);
+    let studentId = req.user.student_id;
+
+        // ADMIN override
+        if (req.user.role === "admin" && req.query.student_id) {
+            studentId = Number(req.query.student_id);
+        }
+
+      const cv =await getCVService(studentId);
+      console.log(cv);
+      
       return res.json(cv);
     } catch (err) {
         res.status(500).json({ error: "Failed to load user cv"});
@@ -15,14 +24,21 @@ export async function getCV(req,res){
 
 export async function updateCV(req,res){
     try{
-
-        const uId =req.user.student_id;
         const {
             summary,
             education,
-            experience
+            experience,
+            student_id
         } = req.body;
         
+        // DEFAULT: normal user can only edit their own CV
+        let uId = req.user.student_id;
+
+        // ADMIN OVERRIDE: only admin can target other students
+        if (req.user.role === "admin" && student_id) {
+            uId = student_id;
+        }
+
         await updateCVService(uId,{summary,education,experience})
 
         res.json({

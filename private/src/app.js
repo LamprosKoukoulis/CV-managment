@@ -8,6 +8,7 @@ import authRouter from "../../public/routes/auth.routes.js";
 import cvRouter from "../../public/routes/cv.routes.js";
 import skillsRouter from "../../public/routes/skills.routes.js";
 import keywordsRouter from "../../public/routes/keywords.routes.js";
+import studentsRouter from "../../public/routes/students.routes.js";
 
 const app = express();
 
@@ -22,6 +23,7 @@ app.use("/auth", authRouter);
 app.use("/cv",cvRouter);
 app.use("/skills",skillsRouter);
 app.use("/keywords",keywordsRouter);
+app.use("/students",studentsRouter);
 
 
 
