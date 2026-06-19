@@ -1,3 +1,4 @@
+import { loadFooter } from "./footer.js";
 document.getElementById("loginForm")
 .addEventListener("submit", async (e) => {
 
@@ -32,3 +33,5 @@ document.getElementById("loginForm")
         alert(data.error);
     }
 });
+
+loadFooter();

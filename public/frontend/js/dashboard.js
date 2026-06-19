@@ -1,4 +1,5 @@
 import { getMe } from "./auth.js";
+import { loadFooter } from "./footer.js";
 
 let publicCVs = [];
 let publicKeywords = [];
@@ -126,3 +127,4 @@ function escapeHtml(value = "") {
 }
 
 loadUser();
+loadFooter();

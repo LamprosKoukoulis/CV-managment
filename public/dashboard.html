@@ -11,34 +11,38 @@
 <body>
 
     <div id="header-container"></div>
-    <div>
-        <div id="dashboardWelcomeText" class="welcomeText"></div>
-    </div>
-    <section id="browseCv" class="hero" style="display: none;">
-        <div class="hero-icon">
-            <span class="line"></span>
-            <!-- <img class="icon" src="./images/learning.png"><br> -->
-            <span class="line"></span>
+    
+    <main>
+        <div>
+            <div id="dashboardWelcomeText" class="welcomeText"></div>
         </div>
-        <h2>CVs</h2>
-        <div id="publicCvFilters" class="cv-filters"></div>
-        <div id="publicCvList"></div>
-    </section>
-
-    <section id="admin" style="display:none"> </section>
-
-    <section id="cv" class="cv" style="display: none;">
-        <div class="cv-icon">
-            <span class="line"></span>
-            <!-- <img class="icon" src="./images/learning.png"><br> -->
-            <span class="line"></span>
-        </div>
-        <h2>Edit Your CV</h2>
-        <div id="cvEditor"></div>
-    </section>
-
+        <section id="browseCv" class="hero" style="display: none;">
+            <div class="hero-icon">
+                <span class="line"></span>
+                <!-- <img class="icon" src="./images/learning.png"><br> -->
+                <span class="line"></span>
+            </div>
+            <h2>CVs</h2>
+            <div id="publicCvFilters" class="cv-filters"></div>
+            <div id="publicCvList"></div>
+        </section>
+        
+        <section id="admin" style="display:none"> </section>
+        
+        <section id="cv" class="cv" style="display: none;">
+            <div class="cv-icon">
+                <span class="line"></span>
+                <!-- <img class="icon" src="./images/learning.png"><br> -->
+                <span class="line"></span>
+            </div>
+            <h2>Edit Your CV</h2>
+            <div id="cvEditor"></div>
+        </section>
+    </main>
+        
+    <div id="footer-container"></div>
+    
     <!-- <section id="admin" style="display:none"> </section> -->
-
     <script type="module" src="./frontend/js/header.js"></script>
     <!-- <script type="module" src="./frontend/js/student.js"></script> -->
     <script type="module" src="./frontend/js/cv/main.js"></script>
