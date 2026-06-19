@@ -63,11 +63,15 @@ export async function getAllCVs() {
                 students.id AS student_id,
                 students.name,
                 students.surname,
+                users.email,
                 cv.summary,
                 cv.experience,
                 cv.education
             FROM students
-            LEFT JOIN cv ON cv.student_id = students.id
+            JOIN users
+                ON users.id = students.user_id
+            LEFT JOIN cv 
+                ON cv.student_id = students.id
             ORDER BY students.surname, students.name
         `);
 

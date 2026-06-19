@@ -97,6 +97,10 @@ function renderPublicCVs() {
             <p>${escapeHtml(cv.summary || "No summary available.")}</p>
             ${renderTags("Skills", cv.skills)}
             ${renderTags("Keywords", cv.keywords)}
+            <div class="cv-email"><button> 
+            <a href="mailto:${escapeHtml(cv.email ?? "")}">
+                Contact Candidate
+            </a></button></div>
         </article>
     `).join("");
 }
