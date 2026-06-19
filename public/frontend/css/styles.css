@@ -11,7 +11,7 @@ body {
 
 button {
     padding: 10px 15px;
-    background: #3b009b;
+    background: #3e0697;
     color: white;
     border: none;
     border-radius: 5px;
@@ -21,7 +21,7 @@ button {
 }
 
 button:hover {
-    background: #3b009b;
+    background: #320083;
 }
 .card {
   border: 1px solid #ddd;
@@ -67,9 +67,19 @@ button:hover {
   margin: 4px;
   padding: 4px 8px;
   border-radius: 4px;
-  background: #ece7f8;
-  color: #2b145c;
+  background: #ff7c41;
+  color: #ffffff;
 }
+.cv-email{
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+button a {
+    color: white;
+    text-decoration: none;
+}
+
 section{
   background: white;
   max-width: 1000px;

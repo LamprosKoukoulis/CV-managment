@@ -1,12 +1,6 @@
 import { user } from "./user.js";
 import {setCVMessage} from "./extras-ui.js"
 
-export async function loadMe() {
-    const res = await fetch("/auth/me", { credentials: "include" });
-    user.me = await res.json();
-    // console.log("me:", user.me);
-}
-
 export async function loadStudents() {
     const res = await fetch("/students", { credentials: "include" });
     user.students = await res.json();

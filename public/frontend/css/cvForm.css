@@ -50,7 +50,7 @@ select[multiple] {
     padding: .4rem .8rem;
     border-radius: 999px;
 
-    background: #3b009b;
+    background: #ff7c41;
     color: white;
 }
 
@@ -64,72 +64,3 @@ select[multiple] {
 #submit-cv {
     padding: .8rem 2rem;
 }
-
-.cv-form {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 2rem;
-
-    max-width: 1200px;
-    margin: 2rem auto;
-}
-
-.cv-main,
-.cv-rest {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-}
-
-.group {
-    display: flex;
-    flex-direction: column;
-    gap: .5rem;
-}
-.cv-main label,
-.group label {
-    font-weight: 600;
-}
-
-textarea {
-    min-height: 120px;
-    resize: vertical;
-
-    padding: 1rem;
-    border-radius: 8px;
-}
-
-select[multiple] {
-    max-height: 180px;
-
-    padding: .5rem;
-    border-radius: 8px;
-}
-
-.tags-container {
-    display: flex;
-    flex-wrap: wrap;
-    gap: .5rem;
-    min-height: 40px;
-}
-
-.tag {
-    padding: .4rem .8rem;
-    border-radius: 999px;
-
-    background: #3b009b;
-    color: white;
-}
-
-.cv-actions {
-    grid-column: 1 / -1;
-
-    display: flex;
-    justify-content: center;
-}
-
-#submit-cv {
-    padding: .8rem 2rem;
-    margin-bottom: 25px;
-}
-

@@ -1,7 +1,8 @@
 import { user } from "./user.js";
-import { loadMe, loadStudents, loadLookups, loadCV, saveCV } from "./fetch.js";
+import { loadStudents, loadLookups, loadCV, saveCV } from "./fetch.js";
 import { renderCV, renderCVEditor, attachListeners } from "./render.js";
 import { renderStudentDropdown } from "./extras-ui.js";
+import { getMe } from "../auth.js";
 
 init();
 document.addEventListener("dashboard:ready", init);
@@ -14,8 +15,8 @@ async function init() {
     }
 
     renderCVEditor();
-    
-    await loadMe();
+
+    user.me = await getMe();
 
     if (user.me.role === "admin") {
 
