@@ -12,7 +12,7 @@ async function init() {
     if (!cvSection || cvSection.style.display === "none") {
         return;
     }
-    
+
     renderCVEditor();
     
     await loadMe();

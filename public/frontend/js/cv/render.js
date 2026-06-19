@@ -35,6 +35,7 @@ export function attachListeners() {
         e.preventDefault();
         saveCV(form);
     };
+
 }
 
 export function render(selectId, tagsId, items, selectedIds = []) {
