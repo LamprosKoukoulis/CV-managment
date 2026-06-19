@@ -97,9 +97,9 @@ section{
 
 .welcomeText {
     position: absolute;
-    margin-top: 17px;
+    margin-top: 15px;
     left: 50%;
-    transform: translate(-50%, 100px);
+    transform: translate(-50%, 50px);
     opacity: 0;
 
     animation: flyCenter 1s ease-out forwards;
@@ -117,3 +117,4 @@ section{
         transform: translate(-50%, 0);
     }
 }
+
